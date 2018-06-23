@@ -1,0 +1,5 @@
+breakpoint set --name main
+run
+expr int* $tmp = tab
+watchpoint set var tab[1]
+watchpoint command add 1 --one-liner "expr $tmp[count] = tab[1]"
