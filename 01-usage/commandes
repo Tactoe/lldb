@@ -1,5 +1,18 @@
-breakpoint set --name main
-run
-expr int* $tmp = tab
-watchpoint set var tab[1]
-watchpoint command add 1 --one-liner "expr $tmp[count] = tab[1]"
+breakpoint set source.cpp -l 15 -o
+breakpoint set source.cpp -p "return tmp;|return biggest;"
+expression int $backup[3]
+watchpoint set variable count
+watchpoint command add 1
+"expr if (count != 0) $backup[count - 1] = tab[1]
+continue
+DONE"
+continue
+watchpoint delete 1
+expression for (int i = 0; i < 3; i++) tab[i] = $backup[i];
+next
+expression count = 0
+continue
+expression tmp = ($backup[0] + $backup[1] + $backup[2]) / max
+continue
+expression for (int i = 0; i < 3; i++) if (biggest <= min[i]) biggest = min[i];
+continue
